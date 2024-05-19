@@ -12,6 +12,11 @@ connectDB();
 app.use(express.json());
 app.use(cors({ origin: "http://localhost:3000" }));
 
+//ROOT ROUTE WILL DISPLAY THE BEST LOCATIONS
+app.get("/", async (req, res) => {
+  await locationController.getBestLocations(req, res);
+});
+
 //REGISTER A NEW USER
 app.post("/register", async (req, res) => {
   await userController.userRegister(req, res);
