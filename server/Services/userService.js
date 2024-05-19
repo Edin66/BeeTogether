@@ -82,22 +82,26 @@ const loginUser = async (email, password) => {
 //GET USER INGORMATION
 const getUser = async (token) => {
   const serviceReponse = new ServiceResponse({ success: false });
-  const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
-  const userId = decodedToken.userId;
+  try {
+    const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
+    const userId = decodedToken.userId;
 
-  const foundUser = await User.findOne({ _id: userId }).select("-password");
-  if (!foundUser) {
-    serviceReponse.message = "User not found";
-    return serviceReponse;
+    const foundUser = await User.findOne({ _id: userId }).select("-password");
+    if (!foundUser) {
+      serviceReponse.message = "User not found";
+      return serviceReponse;
+    }
+    const userLocations = await Location.find({ beekeeper: userId }).exec();
+
+    const userObject = foundUser.toObject();
+    userObject.locations = userLocations;
+
+    serviceReponse.success = true;
+    serviceReponse.message = "User retrieved successfully";
+    serviceReponse.data = userObject;
+  } catch (err) {
+    serviceReponse.message = err.message;
   }
-  const userLocations = await Location.find({ beekeeper: userId }).exec();
-
-  const userObject = foundUser.toObject();
-  userObject.locations = userLocations;
-
-  serviceReponse.success = true;
-  serviceReponse.message = "User retrieved successfully";
-  serviceReponse.data = userObject;
 
   return serviceReponse;
 };

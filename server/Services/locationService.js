@@ -4,6 +4,31 @@ const jwt = require("jsonwebtoken");
 const ServiceResponse = require("../Models/ServiceResponse");
 const Location = require("../Models/Location");
 
+//GET BEST LOCATIONS
+const getBestLocations = async () => {
+  const serviceResponse = new ServiceResponse({ success: false });
+  try {
+    const locations = await Location.find().exec();
+
+    //ARRANGE THE ARRAY ACCORDING TO THE BIGGEST DAILY SURPLUS
+    const bestLocations = arrangeLocations(locations);
+
+    serviceResponse.message = "Retrieved best Locations.";
+    serviceResponse.data = bestLocations;
+    serviceResponse.success = true;
+  } catch (err) {
+    serviceResponse.message = err.message;
+  }
+
+  return serviceResponse;
+};
+
+const arrangeLocations = (locations) => {
+  locations.sort((a, b) => b.dailySurplus - a.dailySurplus);
+  return locations;
+};
+
+//ADD NEW LOCATION
 const addNewLocation = async (newLocation, token) => {
   const serviceResponse = new ServiceResponse({ success: false });
   const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
@@ -54,6 +79,6 @@ const isValidNumberOfHives = (numberOfHives) => {
   return !isNaN(numberOfHives) && numberOfHives > 0;
 };
 
-const locationService = { addNewLocation };
+const locationService = { addNewLocation, getBestLocations };
 
 module.exports = locationService;

@@ -1,6 +1,11 @@
 const Location = require("../Models/Location");
 const locationService = require("../Services/locationService");
 
+const getBestLocations = async (req, res) => {
+  const result = await locationService.getBestLocations();
+  res.send(result);
+};
+
 const addNewLocation = async (req, res) => {
   const token = req.body.token;
   const newLocation = extractLocation(req);
@@ -34,6 +39,6 @@ const extractLocation = (req) => {
   return newLocation;
 };
 
-const locationController = { addNewLocation };
+const locationController = { addNewLocation, getBestLocations };
 
 module.exports = locationController;
