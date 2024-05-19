@@ -1,11 +1,16 @@
-const ServiceResponse = require("../Models/ServiceResponse");
-const client = require("../Database/Utils");
+require("dotenv").config();
+const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const saltRounds = 10;
 
+const ServiceResponse = require("../Models/ServiceResponse");
+const User = require("../Models/User");
+const Location = require("../Models/Location");
+
+//REGISTER A NEW USER
 const registerUser = async (newUser) => {
   const serviceReponse = new ServiceResponse();
-  const emailTaken = await checkIfEmailIsTaken(newUser.email);
+  const emailTaken = await User.findOne({ email: newUser.email });
 
   if (emailTaken) {
     serviceReponse.message = "Email in use.";
@@ -15,7 +20,7 @@ const registerUser = async (newUser) => {
       //ENCRYPT PASSWORD
       const hash = await bcrypt.hash(newUser.password, saltRounds);
       newUser.password = hash;
-      await addUserToDatabase(newUser);
+      await newUser.save();
       serviceReponse.success = true;
       serviceReponse.message = "User registered successfully!";
       serviceReponse.data = {
@@ -32,33 +37,10 @@ const registerUser = async (newUser) => {
   return serviceReponse;
 };
 
-const addUserToDatabase = async (user) => {
-  return client
-    .db("BeeTogether")
-    .collection("Users")
-    .insertOne(user)
-    .then(() => {
-      console.log("SUCCESS\n" + user);
-    });
-};
-
-const checkIfEmailIsTaken = async (email) => {
-  const result = await client
-    .db("BeeTogether")
-    .collection("Users")
-    .findOne({ email: email }, (err) => {
-      if (err) console.log(err);
-    });
-  // if (result) return true;
-  // else return false;
-  return result;
-};
-
+//LOG IN AN EXISTING USER
 const loginUser = async (email, password) => {
   const serviceResponse = new ServiceResponse({ success: false });
-  const foundUser = await checkIfEmailIsTaken(email);
-
-  console.log("\nSERVICE START");
+  const foundUser = await User.findOne({ email: email });
 
   if (!foundUser) {
     serviceResponse.message = "Email is not in use!";
@@ -66,10 +48,28 @@ const loginUser = async (email, password) => {
   }
 
   try {
-    const result = await bcrypt.compare(password, foundUser.password);
-    if (result) {
+    const isPasswordCorrect = await bcrypt.compare(
+      password,
+      foundUser.password
+    );
+    if (isPasswordCorrect) {
+      //CREATE A WEB TOKEN
+      const token = jwt.sign(
+        { userId: foundUser._id },
+        process.env.SECRET_KEY,
+        {
+          expiresIn: "24h",
+        }
+      );
       serviceResponse.success = true;
       serviceResponse.message = "Successful login";
+      serviceResponse.data = {
+        user: {
+          fullName: foundUser.fullName,
+          phoneNumber: foundUser.phoneNumber,
+        },
+        token: token,
+      };
     } else {
       serviceResponse.message = "Incorrect password";
     }
@@ -79,6 +79,17 @@ const loginUser = async (email, password) => {
   return serviceResponse;
 };
 
-const userService = { registerUser, loginUser };
+//GET USER INGORMATION
+const getUser = async (token) => {
+  const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
+  const userId = decodedToken.userId;
+
+  const foundUser = await User.findOne({ _id: userId }).select("-password");
+  const userLocations = await Location.find({ beekeeper: userId }).exec();
+
+  return foundUser;
+};
+
+const userService = { registerUser, loginUser, getUser };
 
 module.exports = userService;

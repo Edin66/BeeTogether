@@ -1,9 +1,16 @@
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const mongoose = require("mongoose");
 require("dotenv").config();
 
-const uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@restapi.yer7u2u.mongodb.net/?retryWrites=true&w=majority&appName=RESTApi`;
-const client = new MongoClient(uri, {
-  serverApi: ServerApiVersion.v1,
-});
+const uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@restapi.yer7u2u.mongodb.net/BeeTogether?retryWrites=true&w=majority`;
 
-module.exports = client;
+const connectDB = async () => {
+  try {
+    await mongoose.connect(uri, {});
+    console.log("MongoDB connected successfully.");
+  } catch (err) {
+    console.error("MongoDB connection error: ", err.message);
+    process.exit(1);
+  }
+};
+
+module.exports = connectDB;
