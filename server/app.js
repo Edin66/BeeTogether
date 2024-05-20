@@ -10,7 +10,7 @@ const app = express();
 //Connect to DB
 connectDB();
 app.use(express.json());
-app.use(cors({ origin: "http://localhost:3000" }));
+app.use(cors({ origin: "http://localhost:5173" }));
 
 //ROOT ROUTE WILL DISPLAY THE BEST LOCATIONS
 app.get("/", async (req, res) => {

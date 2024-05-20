@@ -9,45 +9,49 @@ const Location = require("../Models/Location");
 
 //REGISTER A NEW USER
 const registerUser = async (newUser) => {
-  const serviceReponse = new ServiceResponse();
-  const emailTaken = await User.findOne({ email: newUser.email });
+  const serviceReponse = new ServiceResponse({ success: false });
 
-  if (emailTaken) {
-    serviceReponse.message = "Email in use.";
-    serviceReponse.success = false;
-  } else {
-    try {
+  try {
+    const emailTaken = await User.findOne({ email: newUser.email });
+
+    if (emailTaken) {
+      serviceReponse.message = "Email in use.";
+    } else {
       //ENCRYPT PASSWORD
       const hash = await bcrypt.hash(newUser.password, saltRounds);
       newUser.password = hash;
       await newUser.save();
+      //CREATE A WEB TOKEN
+      const token = jwt.sign({ userId: newUser._id }, process.env.SECRET_KEY, {
+        expiresIn: "6h",
+      });
       serviceReponse.success = true;
       serviceReponse.message = "User registered successfully!";
       serviceReponse.data = {
-        fullName: newUser.fullName,
-        phoneNumber: newUser.phoneNumber,
+        user: { fullName: newUser.fullName, phoneNumber: newUser.phoneNumber },
+        token: token,
       };
-    } catch (err) {
-      // Handle any errors that might occur during hashing or adding to the database
-      console.error(err);
-      serviceReponse.message = "Error registering user.";
-      serviceReponse.success = false;
     }
+  } catch (err) {
+    // Handle any errors that might occur during hashing or adding to the database
+    console.error(err);
+    serviceReponse.message = "Error registering user.";
   }
+
   return serviceReponse;
 };
 
 //LOG IN AN EXISTING USER
 const loginUser = async (email, password) => {
   const serviceResponse = new ServiceResponse({ success: false });
-  const foundUser = await User.findOne({ email: email });
-
-  if (!foundUser) {
-    serviceResponse.message = "Email is not in use!";
-    return serviceResponse;
-  }
 
   try {
+    const foundUser = await User.findOne({ email: email });
+
+    if (!foundUser) {
+      serviceResponse.message = "Email is not in use!";
+      return serviceResponse;
+    }
     const isPasswordCorrect = await bcrypt.compare(
       password,
       foundUser.password
@@ -58,7 +62,7 @@ const loginUser = async (email, password) => {
         { userId: foundUser._id },
         process.env.SECRET_KEY,
         {
-          expiresIn: "24h",
+          expiresIn: "6h",
         }
       );
       serviceResponse.success = true;

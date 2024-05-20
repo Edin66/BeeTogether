@@ -1,0 +1,88 @@
+/* LocationCard.css */
+.location-card {
+  height: fit-content;
+  width: fit-content;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+  padding: 1rem;
+  text-align: center;
+  transition: transform 0.3s;
+}
+
+.location-card:hover {
+  transform: scale(1.02);
+}
+
+.card-title {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.card-number {
+  font-size: 1.2rem;
+  margin-top: 15px;
+  color: #1cc617;
+}
+
+.card-number span {
+  font-size: 1rem;
+  color: #666;
+}
+
+.card-btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.card-btn:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .location-card {
+    margin: 10px;
+    padding: 15px;
+  }
+
+  .card-title {
+    font-size: 1.3rem;
+  }
+
+  .card-number {
+    font-size: 1rem;
+  }
+
+  .card-btn {
+    padding: 8px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .location-card {
+    margin: 5px;
+    padding: 10px;
+  }
+
+  .card-title {
+    font-size: 1.1rem;
+  }
+
+  .card-number {
+    font-size: 0.9rem;
+  }
+
+  .card-btn {
+    padding: 6px 12px;
+  }
+}

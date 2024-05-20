@@ -25,9 +25,15 @@ const execUserLogin = async (email, password) => {
 };
 
 const getUser = async (req, res) => {
-  const token = req.body.token;
-  const result = await userService.getUser(token);
-  res.send(result);
+  const authHeader = req.headers["authorization"];
+  if (authHeader && authHeader.startsWith("Bearer ")) {
+    // Check if the authorization header exists and has the correct format
+    const token = authHeader.split(" ")[1]; // Extract the token from the authorization header
+    const result = await userService.getUser(token);
+    res.send(result);
+  } else {
+    res.send("Unauthorized");
+  }
 };
 
 const userController = { userLogin, userRegister, getUser };
