@@ -1,0 +1,55 @@
+.medicine-form {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  transform: translateY(-20%);
+}
+
+.medicine-form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.medicine-form form {
+  display: flex;
+  flex-direction: column;
+}
+
+.medicine-form label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.medicine-form select,
+.medicine-form input {
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.medicine-form button {
+  padding: 10px;
+  background-color: #3c6e71;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.medicine-form button:hover {
+  background-color: #2f5557;
+}
+
+.order-message {
+  background-color: #e0f7fa;
+  color: #00796b;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  text-align: center;
+}

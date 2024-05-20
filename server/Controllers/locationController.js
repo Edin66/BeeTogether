@@ -7,10 +7,16 @@ const getBestLocations = async (req, res) => {
 };
 
 const addNewLocation = async (req, res) => {
-  const token = req.body.token;
-  const newLocation = extractLocation(req);
-  const result = await execAddNewLocation(newLocation, token);
-  res.send(result);
+  const authHeader = req.headers["authorization"];
+  if (authHeader && authHeader.startsWith("Bearer ")) {
+    // Check if the authorization header exists and has the correct format
+    const token = authHeader.split(" ")[1];
+    const newLocation = extractLocation(req);
+    const result = await execAddNewLocation(newLocation, token);
+    res.send(result);
+  } else {
+    res.send("Unauthorized");
+  }
 };
 
 const execAddNewLocation = async (newLocation, token) => {

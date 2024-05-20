@@ -14,7 +14,7 @@ const getBestLocations = async () => {
     const bestLocations = arrangeLocations(locations);
 
     serviceResponse.message = "Retrieved best Locations.";
-    serviceResponse.data = bestLocations;
+    serviceResponse.data = { locations: bestLocations };
     serviceResponse.success = true;
   } catch (err) {
     serviceResponse.message = err.message;
