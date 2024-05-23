@@ -21,8 +21,6 @@ const Profile = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        // Assuming the response data structure includes a fullName property
-        console.log(response.data.data);
         setUser(response.data.data);
       } catch (error) {
         console.error("Error fetching profile:", error);
@@ -30,7 +28,6 @@ const Profile = () => {
         setLoading(false);
       }
     };
-
     if (token) {
       fetchProfile();
     }

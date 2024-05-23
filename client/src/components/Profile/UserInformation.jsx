@@ -14,7 +14,7 @@ const UserInformation = ({ user }) => {
   };
   return (
     <div className="user-profile">
-      <h1 className="user-profile-title">User Profile</h1>
+      <h1 className="user-profile-title">Your Profile</h1>
       <p className="user-profile-item">
         Full Name: <span>{user.fullName}</span>
       </p>

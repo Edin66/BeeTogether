@@ -1,19 +1,21 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import "./LocationCard.css";
 import Map from "./Map/Map";
 
 const LocationCard = (props) => {
-  const coordinates = [parseFloat(props.lat), parseFloat(props.lon)];
   return (
     <div className="location-card">
       <h1 className="card-title">{props.title}</h1>
-      <Map coordinates={coordinates} />
+      <Map lat={props.lat} lon={props.lon} />
       <h2 className="card-number">
         <span>Daily Surplus: </span>
-        {props.dailySurplus}
+        {props.dailySurplus}kg
       </h2>
-      <button className="card-btn">See More</button>
+      <Link to={`/location/${props.id}`} className="card-btn">
+        View Location
+      </Link>
     </div>
   );
 };

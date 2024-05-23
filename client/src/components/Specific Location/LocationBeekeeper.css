@@ -1,0 +1,28 @@
+.beekeeper-profile {
+  background-color: var(--white);
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1.2rem;
+  max-width: 600px;
+  min-width: 400px;
+  margin: 20px auto;
+  box-shadow: var(--small-box-shadow);
+}
+
+.beekeeper-profile-title {
+  font-size: 24px;
+  color: var(--black);
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.beekeeper-profile-item {
+  margin: 10px 0;
+  font-size: 18px;
+  color: var(--light-black);
+}
+
+.beekeeper-profile-item span {
+  font-weight: bold;
+  color: var(--dark-green);
+}

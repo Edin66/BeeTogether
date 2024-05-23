@@ -3,6 +3,8 @@
 }
 
 .form-group label {
+  color: var(--black);
+  font-size: 1.1rem;
   display: block;
   margin-bottom: 5px;
 }
@@ -10,11 +12,18 @@
 .form-group input {
   width: 95%;
   padding: 8px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--light-black);
+  outline: none;
   border-radius: 5px;
   font-size: 1.1rem;
 }
 
+.form-group input:focus {
+  border: 2px solid var(--orange);
+  outline: none;
+}
+
 .form-group input[type="password"] {
+  font-weight: bold;
   letter-spacing: 3px;
 }

@@ -32,9 +32,24 @@ app.get("/profile", async (req, res) => {
   await userController.getUser(req, res);
 });
 
+//GET USER BY ID
+app.post("/get-specific-user", async (req, res) => {
+  await userController.getSpecificUser(req, res);
+});
+
 //ADD A NEW LOCATION
 app.post("/add-location", async (req, res) => {
   await locationController.addNewLocation(req, res);
+});
+
+//GET SPECIFIC LOCATION
+app.get("/location/:id", async (req, res) => {
+  await locationController.getSpecificLocation(req, res);
+});
+
+//DELETE SPECIFIC LOCATION
+app.delete("/delete-location/:id", async (req, res) => {
+  await locationController.deleteLocation(req, res);
 });
 
 app.listen("7000", () => {

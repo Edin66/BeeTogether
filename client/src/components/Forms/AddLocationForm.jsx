@@ -2,9 +2,10 @@ import React, { useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+import AlertModal from "../Modals/AlertModal";
 import { AuthContext } from "../../store/AuthProvider";
-import InputField from "./InputField";
-import "./LoginForm.css";
+import InputField from "./InputField/InputField";
+import "./Form.css";
 
 const AddLocationForm = () => {
   const { token } = useContext(AuthContext);
@@ -18,6 +19,8 @@ const AddLocationForm = () => {
     pasture: "",
     duration: "",
   });
+  const [showModal, setShowModal] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,17 +39,22 @@ const AddLocationForm = () => {
           },
         }
       );
-      console.log("Location added successfully:", response.data.data);
       if (response.data.success) {
-        alert("Location added successfully!");
-        navigate("/profile");
+        setAlertMessage("Location added successfully!");
+        setShowModal(true);
       } else {
-        alert("Failed to add location. Please try again.");
+        setAlertMessage("Failed to add location. Please try again.");
+        setShowModal(true);
       }
-      // Optionally, you can handle success message or navigation here
     } catch (error) {
       console.error("Error adding location:", error);
-      // Optionally, you can handle error message here
+    }
+  };
+
+  const handleModalClose = () => {
+    setShowModal(false);
+    if (alertMessage === "Location added successfully!") {
+      navigate("/profile");
     }
   };
 
@@ -61,29 +69,35 @@ const AddLocationForm = () => {
       />
       <InputField
         label="Latitude"
-        type="text"
+        type="number"
         name="latitude"
+        min="-180"
+        max="180"
         value={formData.latitude}
         onChange={handleChange}
       />
       <InputField
         label="Longitude"
-        type="text"
+        type="number"
         name="longitude"
+        min="-180"
+        max="180"
         value={formData.longitude}
         onChange={handleChange}
       />
       <InputField
         label="Daily Surplus"
-        type="text"
+        type="number"
         name="dailySurplus"
+        min="0"
         value={formData.dailySurplus}
         onChange={handleChange}
       />
       <InputField
         label="Number of Hives"
-        type="text"
+        type="number"
         name="numberOfHives"
+        min="0"
         value={formData.numberOfHives}
         onChange={handleChange}
       />
@@ -101,7 +115,14 @@ const AddLocationForm = () => {
         value={formData.duration}
         onChange={handleChange}
       />
-      <button type="submit">Add Location</button>
+      <button type="submit" className="form-submit-button">
+        Add Location
+      </button>
+      <AlertModal
+        isOpen={showModal}
+        onRequestClose={handleModalClose}
+        message={alertMessage}
+      />
     </form>
   );
 };

@@ -1,5 +1,30 @@
 .page-body {
-  background-color: #0a0908aa;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  width: 100%;
+  background-image: linear-gradient(
+      to left,
+      rgb(0, 0, 0, 0.6),
+      rgb(0, 0, 0, 0.6)
+    ),
+    url("../../images/background.jpg");
+  background-position: center;
+  background-repeat: repeat;
+  background-size: center;
+}
+
+@media (max-width: 1200px) {
+  body {
+    background-size: 100% auto;
+  }
+}
+
+@media (max-width: 800px) {
+  body {
+    background-size: 100% auto;
+  }
+}
+
+@media (max-width: 600px) {
+  body {
+    background-size: contain;
+  }
 }
