@@ -33,7 +33,7 @@ app.get("/profile", async (req, res) => {
 });
 
 //GET USER BY ID
-app.post("/get-specific-user", async (req, res) => {
+app.post("/get-user-by-id", async (req, res) => {
   await userController.getSpecificUser(req, res);
 });
 

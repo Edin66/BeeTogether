@@ -14,21 +14,27 @@ const UserInformation = ({ user }) => {
   };
   return (
     <div className="user-profile">
-      <h1 className="user-profile-title">Your Profile</h1>
-      <p className="user-profile-item">
-        Full Name: <span>{user.fullName}</span>
-      </p>
-      <p className="user-profile-item">
-        Email: <span>{user.email}</span>
-      </p>
-      <p className="user-profile-item">
-        Phone Number: <span>{user.phoneNumber}</span>
-      </p>
-      <div className="logout-container">
-        <button className="logout-button" onClick={onLogout}>
-          <i className="fa-solid fa-right-from-bracket"></i> Logout
-        </button>
-      </div>
+      {user ? (
+        <>
+          <h1 className="user-profile-title">Your Profile</h1>
+          <p className="user-profile-item">
+            Full Name: <span>{user.fullName}</span>
+          </p>
+          <p className="user-profile-item">
+            Email: <span>{user.email}</span>
+          </p>
+          <p className="user-profile-item">
+            Phone Number: <span>{user.phoneNumber}</span>
+          </p>
+          <div className="logout-container">
+            <button className="logout-button" onClick={onLogout}>
+              <i className="fa-solid fa-right-from-bracket"></i> Logout
+            </button>
+          </div>
+        </>
+      ) : (
+        <p>User information not available.</p>
+      )}
     </div>
   );
 };
