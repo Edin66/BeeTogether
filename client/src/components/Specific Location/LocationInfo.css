@@ -23,10 +23,6 @@
   color: #0056b3;
 }
 
-.clipboard-container {
-  position: relative;
-}
-
 .copy-coordinates {
   cursor: grab;
   font-weight: normal;
@@ -35,6 +31,9 @@
 
 .copy-coordinates:active {
   cursor: grabbing;
+}
+.clipboard-container {
+  position: relative;
 }
 
 .copy-coordinates:hover {
