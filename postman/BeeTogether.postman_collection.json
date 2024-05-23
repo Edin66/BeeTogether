@@ -1,0 +1,461 @@
+{
+	"info": {
+		"_postman_id": "f2bfdba1-2399-4efe-a18f-ed8b2430f070",
+		"name": "BeeTogether",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23767426"
+	},
+	"item": [
+		{
+			"name": "/login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response body has success property set to true\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property('success', true);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check if token is present\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data).to.have.property('token');\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"adem@mail.com\",\r\n    \"password\": \"Ademhafe123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:7000/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"login"
+					],
+					"query": [
+						{
+							"key": "fullName",
+							"value": "Adem Sinanovic",
+							"disabled": true
+						},
+						{
+							"key": "email",
+							"value": "adem@mail.com",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "adem123",
+							"disabled": true
+						},
+						{
+							"key": "phoneNumber",
+							"value": "644158658",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/add-location",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response has success property set to true\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property('success', true);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response has message property with correct value\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property('message', 'Location successfully added!');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response has data property\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property('data');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Data object has title property with correct value\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data).to.have.property('title', 'Zavidovici, Sinanovici');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Data object has beekeeper property with correct value\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data).to.have.property('beekeeper', '664c9a8ce02403fc233bedea');\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjRjOWE4Y2UwMjQwM2ZjMjMzYmVkZWEiLCJpYXQiOjE3MTY0NjEyMTIsImV4cCI6MTcxNjQ4MjgxMn0.K3gvImniWmSztGzBANmp428ijVjZRzzCTSbg5Cz99ms"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"title\": \"Zavidovici, Sinanovici\",\r\n  \"latitude\": \"46.7128\",\r\n  \"longitude\": \"-73.3860\",\r\n  \"dailySurplus\": 1.91,\r\n  \"numberOfHives\": \"21\",\r\n  \"pasture\": \"Spruce\",\r\n  \"duration\": \"6 weeks\",\r\n  \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjQ5ZTFjNjNjMGIyYTUzOGMyYzk5MTAiLCJpYXQiOjE3MTYxMTc5OTMsImV4cCI6MTcxNjIwNDM5M30.jXK2BQJWfAvD5RXqDfODli9GXcpmdqMSnjz0q3J6WCw\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:7000/add-location",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"add-location"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/register",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response has success property set to true\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property('success', true);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response has message property with correct value\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property('message', 'User registered successfully!');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response has data property\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property('data');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Data object has user property\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data).to.have.property('user');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"User object has fullName property with correct value\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data.user).to.have.property('fullName', 'Ali Jusic');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"User object has phoneNumber property with correct value\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data.user).to.have.property('phoneNumber', '061226658');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Data object has token property\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data).to.have.property('token');\r",
+							"    pm.expect(jsonData.data.token).to.be.a('string');\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{  \r\n        \"fullName\": \"Ali Jusic\",\r\n        \"email\": \"aliii@mail.com\",\r\n        \"password\": \"ali123\",\r\n        \"phoneNumber\": \"061226658\" \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:7000/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/profile",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response has success property set to true\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property('success', true);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response has message property with correct value\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property('message', 'User retrieved successfully');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response has data property\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property('data');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Data object has fullName property with correct value\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data).to.have.property('fullName', 'Adem Sinanovic');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Data object has email property with correct value\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data).to.have.property('email', 'adem@mail.com');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Data object has phoneNumber property with correct value\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data).to.have.property('phoneNumber', '0644158689');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Data object has locations property\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data).to.have.property('locations');\r",
+							"    pm.expect(jsonData.data.locations).to.be.an('array').that.is.not.empty;\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjRjOWE4Y2UwMjQwM2ZjMjMzYmVkZWEiLCJpYXQiOjE3MTY0NjEyMTIsImV4cCI6MTcxNjQ4MjgxMn0.K3gvImniWmSztGzBANmp428ijVjZRzzCTSbg5Cz99ms"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:7000/profile",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response has success property set to true\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property('success', true);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response has message property with correct value\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property('message', 'Retrieved best Locations.');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response has data property\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property('data');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Data object has locations property\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data).to.have.property('locations');\r",
+							"    pm.expect(jsonData.data.locations).to.be.an('array').that.is.not.empty;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"First location has dailySurplus property\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data.locations[0]).to.have.property('dailySurplus');\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7000/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/get-user-by-id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response has success property set to true\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property('success', true);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response has message property with correct value\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property('message', 'Retrieved user successfully.');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response has data property\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property('data');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Data object has user property\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data).to.have.property('user');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"User object has fullName property with correct value\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data.user).to.have.property('fullName', 'Ajdin Dervic');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"User object has email property with correct value\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data.user).to.have.property('email', 'ajdin@mail.com');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"User object has phoneNumber property with correct value\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data.user).to.have.property('phoneNumber', '62256635');\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"664c9dd7e02403fc233bee87\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:7000/get-specific-user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"get-specific-user"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
