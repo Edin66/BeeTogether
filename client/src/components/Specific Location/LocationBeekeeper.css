@@ -9,17 +9,16 @@
   box-shadow: var(--small-box-shadow);
 }
 
+.beekeeper-profile-item {
+  margin: 10px 0;
+  font-size: 18px;
+  color: var(--light-black);
+}
 .beekeeper-profile-title {
   font-size: 24px;
   color: var(--black);
   margin-bottom: 20px;
   text-align: center;
-}
-
-.beekeeper-profile-item {
-  margin: 10px 0;
-  font-size: 18px;
-  color: var(--light-black);
 }
 
 .beekeeper-profile-item span {
