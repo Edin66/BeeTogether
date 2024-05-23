@@ -1,40 +1,11 @@
-/* UserLocations.css */
-
 .user-locations {
   max-width: 800px;
   margin: 20px auto;
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 8px;
-  background-color: #f0f8ff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.user-locations-title {
-  font-size: 24px;
-  font-weight: bold;
-  text-align: center;
-  color: #333;
-}
-
-.location-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
-}
-
-.location-card-item {
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background-color: #fff;
-  padding: 10px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.no-locations-message {
-  font-size: 18px;
-  color: #555;
-  text-align: center;
+  background-color: rgba(241, 240, 234, 0.6);
+  box-shadow: var(--box-shadow);
 }
 
 .user-locations-header {
@@ -46,11 +17,18 @@
   margin-bottom: 2rem;
 }
 
+.user-locations-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-align: center;
+  color: var(--black);
+}
+
 .add-location-button {
   display: block;
   width: fit-content;
   padding: 10px 20px;
-  background-color: #3498db;
+  background-color: var(--green);
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -60,5 +38,40 @@
 }
 
 .add-location-button:hover {
-  background-color: #2980b9;
+  background-color: var(--dark-green);
+}
+
+@media (max-width: 520px) {
+  .add-location-button {
+    padding: 8px;
+    font-size: 1rem;
+  }
+  .user-locations-title {
+    font-size: 1.5rem;
+  }
+}
+
+.location-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+  gap: 20px;
+}
+
+@media (max-width: 770px) {
+  .location-cards {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .user-locations-header {
+    padding: 1rem;
+  }
+}
+
+.location-card-item {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  padding: 10px;
+  box-shadow: var(--small-box-shadow);
 }

@@ -3,9 +3,9 @@ import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 
 import { AuthContext } from "../../store/AuthProvider";
-import InputField from "./InputField";
+import InputField from "./InputField/InputField";
 import Loader from "../Loader/Loader";
-import "./LoginForm.css";
+import "./Form.css";
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({
@@ -42,16 +42,13 @@ const LoginForm = () => {
           navigate("/");
         }, 2000);
       } else {
-        // Show failure message
-        setFailMessage(
-          "Somethin went wrong! Check your internet connection and try again."
-        );
+        setFailMessage(response.data.message);
       }
     } catch (error) {
       console.error("There was an error logging in the user:", error);
       setFailMessage("An error occurred. Please try again.");
     } finally {
-      setLoading(false); // Hide loader after request completes
+      setLoading(false);
     }
   };
 
@@ -78,12 +75,12 @@ const LoginForm = () => {
           value={formData.password}
           onChange={handleChange}
         />
-        <button type="submit" disabled={loading}>
+        <button type="submit" className="form-submit-button" disabled={loading}>
           Login
         </button>
         <p>
           If you don't have an account,{" "}
-          <Link to="/register">Register Here!</Link>.
+          <Link to="/register">Register Here!</Link>
         </p>
       </form>
     </div>

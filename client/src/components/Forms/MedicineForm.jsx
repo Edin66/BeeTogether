@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import ConfirmModal from "../Modals/ConfirmModal";
 import "./MedicineForm.css";
 
 const MedicineForm = () => {
   const [medicine, setMedicine] = useState("");
   const [quantity, setQuantity] = useState("");
   const [orderMessage, setOrderMessage] = useState("");
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const navigate = useNavigate();
 
   const medicines = [
@@ -23,19 +25,17 @@ const MedicineForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    const confirmation = window.confirm(
-      `Confirm order:\n${quantity} units of ${medicine}.`
-    );
-    if (confirmation) {
-      setOrderMessage(`You have ordered ${quantity} units of ${medicine}.`);
-      setMedicine("");
-      setQuantity("");
-      setTimeout(() => {
-        setOrderMessage("");
-        navigate("/profile");
-      }, 3000);
-    }
+    setIsConfirmOpen(true);
+  };
+  const handleConfirm = () => {
+    setOrderMessage(`You have ordered ${quantity} units of ${medicine}.`);
+    setMedicine("");
+    setQuantity("");
+    setTimeout(() => {
+      setOrderMessage("");
+      navigate("/profile");
+    }, 2000);
+    setIsConfirmOpen(false);
   };
 
   return (
@@ -60,7 +60,7 @@ const MedicineForm = () => {
           ))}
         </select>
 
-        <label htmlFor="quantity">Quantity:</label>
+        <label htmlFor="quantity">Number of Units:</label>
         <input
           type="number"
           id="quantity"
@@ -70,9 +70,14 @@ const MedicineForm = () => {
           max="10"
           required
         />
-
         <button type="submit">Order Medicine</button>
       </form>
+      <ConfirmModal
+        isOpen={isConfirmOpen}
+        onRequestClose={() => setIsConfirmOpen(false)}
+        onConfirm={handleConfirm}
+        question={`You are about to order \n${quantity} units of ${medicine}`}
+      />
     </div>
   );
 };

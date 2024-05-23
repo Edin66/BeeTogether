@@ -8,6 +8,7 @@ import Profile from "./pages/Profile";
 import Medicine from "./pages/Medicine";
 import ProtectedRoute from "./utils/ProtectedRoute";
 import AddLocation from "./pages/AddLocation";
+import LocationPage from "./pages/LocationPage";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Route path="/" element={<BestAreas />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/location/:id" element={<LocationPage />} />
       <Route
         path="/profile"
         element={

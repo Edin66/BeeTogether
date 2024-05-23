@@ -1,0 +1,81 @@
+/* styles.css */
+
+/* Common styles for all forms */
+.add-location-form,
+.login-form,
+.register-form {
+  width: 100%;
+  max-width: 450px;
+  margin: 1rem auto;
+  padding: 20px;
+  border: 2px solid var(--orange);
+  box-shadow: var(--box-shadow);
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+@media (max-width: 650px) {
+  .add-location-form,
+  .login-form {
+    max-width: 300px;
+  }
+}
+
+/* Heading styles */
+.add-location-form h2,
+.login-form h2,
+.register-form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Message styles */
+.success-message,
+.fail-message {
+  margin: 10px 0;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.4rem;
+}
+
+/* Button styles */
+.form-submit-button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--blue);
+  color: #fff;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+.form-submit-button:hover {
+  background-color: var(--dark-blue);
+}
+
+.add-location-form button:disabled,
+.login-form button:disabled,
+.register-form button:disabled {
+  background-color: #6c757d;
+}
+
+/* Link styles */
+.add-location-form p a,
+.login-form p a,
+.register-form p a {
+  color: var(--blue);
+  text-decoration: none;
+}
+
+.add-location-form p a:hover,
+.login-form p a:hover,
+.register-form p a:hover {
+  text-decoration: underline;
+}
+
+.fail-message {
+  color: var(--fail-color);
+}
+.success-message {
+  color: var(--success-color);
+}

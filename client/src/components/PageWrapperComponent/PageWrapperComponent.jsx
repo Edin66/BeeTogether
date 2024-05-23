@@ -7,10 +7,11 @@ import Footer from "../Footer/Footer";
 const PageWrapperComponent = ({ children }) => {
   return (
     <React.Fragment>
-      <Navbar />
-      <section className="page-body">{children}</section>
-
-      <Footer />
+      <section className="page-body">
+        <Navbar />
+        {children}
+        <Footer />
+      </section>
     </React.Fragment>
   );
 };

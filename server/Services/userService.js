@@ -110,6 +110,25 @@ const getUser = async (token) => {
   return serviceReponse;
 };
 
-const userService = { registerUser, loginUser, getUser };
+//GET SPECIFIC USER BY ID
+const getSpecificUser = async (userId) => {
+  const serviceResponse = new ServiceResponse({ success: false });
+  try {
+    const user = await User.findById(userId).exec();
+
+    if (user) {
+      serviceResponse.success = true;
+      serviceResponse.message = "Retrieved user successfully.";
+      serviceResponse.data = { user: user };
+    } else {
+      serviceResponse.message = "User not found.";
+    }
+  } catch (err) {
+    serviceResponse.message = err.message;
+  }
+  return serviceResponse;
+};
+
+const userService = { registerUser, loginUser, getUser, getSpecificUser };
 
 module.exports = userService;

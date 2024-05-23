@@ -3,9 +3,9 @@ import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
 import { AuthContext } from "../../store/AuthProvider";
-import InputField from "./InputField";
+import InputField from "./InputField/InputField";
 import Loader from "../Loader/Loader";
-import "./RegisterForm.css";
+import "./Form.css";
 
 const RegisterForm = () => {
   const [formData, setFormData] = useState({
@@ -35,9 +35,7 @@ const RegisterForm = () => {
         formData
       );
       if (!response.data.success) {
-        setFailMessage(
-          "Somethin went wrong! Check your internet connection and try again."
-        );
+        setFailMessage(response.data.message);
       } else {
         login(response.data.data.token); //Save token
         console.log("Registration successful:", response.data);
@@ -51,7 +49,6 @@ const RegisterForm = () => {
         setSuccessMessage("Registration successful!");
         setTimeout(() => {
           setSuccessMessage("");
-          // Navigate to the home page
           navigate("/");
         }, 2000);
       }
@@ -102,7 +99,7 @@ const RegisterForm = () => {
           value={formData.phoneNumber}
           onChange={handleChange}
         />
-        <button type="submit" disabled={loading}>
+        <button type="submit" className="form-submit-button" disabled={loading}>
           Register
         </button>
         <p>

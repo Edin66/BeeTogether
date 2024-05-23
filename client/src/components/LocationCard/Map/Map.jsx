@@ -3,7 +3,8 @@ import { MapContainer, TileLayer, Marker } from "react-leaflet";
 
 import "./Map.css";
 
-const Map = ({ coordinates }) => {
+const Map = (props) => {
+  const coordinates = [parseFloat(props.lat), parseFloat(props.lon)];
   return (
     <MapContainer center={coordinates} zoom={13} className="map">
       <TileLayer

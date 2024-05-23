@@ -1,0 +1,67 @@
+.location-info {
+  flex: 1;
+  min-width: 350px;
+  max-width: 400px;
+  padding: 20px;
+  background-color: rgba(0, 123, 255, 0.15);
+  border: 1px solid var(--blue);
+  border-radius: 8px;
+}
+
+.location-info:hover {
+  background-color: rgba(0, 123, 255, 0.25);
+  cursor: default;
+}
+
+.location-info p {
+  margin: 10px 0;
+  font-size: 18px;
+  color: #333;
+}
+
+.location-info p strong {
+  color: #0056b3;
+}
+
+.clipboard-container {
+  position: relative;
+}
+
+.copy-coordinates {
+  cursor: grab;
+  font-weight: normal;
+  position: relative;
+}
+
+.copy-coordinates:active {
+  cursor: grabbing;
+}
+
+.copy-coordinates:hover {
+  font-weight: bold;
+}
+
+.clipboard-message {
+  position: absolute;
+  top: 2.2rem;
+  left: 35%;
+  transform: translateY(-50%);
+  background-color: #333;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 12px;
+  opacity: 0;
+  animation: fadeInOut 1s forwards;
+}
+
+@keyframes fadeInOut {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  20%,
+  80% {
+    opacity: 1;
+  }
+}

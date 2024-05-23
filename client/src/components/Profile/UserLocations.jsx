@@ -25,6 +25,7 @@ const UserLocations = ({ user }) => {
           {user.locations.map((location, index) => (
             <LocationCard
               key={index}
+              id={location._id}
               title={location.title}
               lat={location.latitude}
               lon={location.longitude}

@@ -2,9 +2,9 @@
 .location-card {
   height: fit-content;
   width: fit-content;
-  background-color: #ffffff;
+  background-color: var(--white);
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--box-shadow);
   margin: 0 auto;
   padding: 1rem;
   text-align: center;
@@ -18,34 +18,39 @@
 .card-title {
   font-size: 1.5rem;
   margin-bottom: 10px;
-  color: #333;
+  color: var(--black);
 }
 
 .card-number {
   font-size: 1.2rem;
   margin-top: 15px;
-  color: #1cc617;
+  color: var(--orange);
 }
 
 .card-number span {
   font-size: 1rem;
-  color: #666;
+  color: var(--light-black);
 }
 
 .card-btn {
-  margin-top: 20px;
+  display: block;
+  width: 100%;
+  max-width: fit-content;
   padding: 10px 20px;
+  background-color: var(--green);
+  color: #fff;
   border: none;
-  border-radius: 5px;
-  background-color: #007bff;
-  color: white;
+  border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 16px;
+  text-decoration: none;
 }
 
 .card-btn:hover {
-  background-color: #0056b3;
-  transform: scale(1.05);
+  background-color: var(--dark-green);
+  transform: scale(1.02);
 }
 
 /* Responsive Design */

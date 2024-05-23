@@ -28,6 +28,22 @@ const arrangeLocations = (locations) => {
   return locations;
 };
 
+//GET SPECIFIC LOCATION
+const getSpecificLocation = async (locationId) => {
+  const serviceResponse = new ServiceResponse({ success: false });
+  try {
+    const location = await Location.findById(locationId).exec();
+    if (location) {
+      serviceResponse.success = true;
+      serviceResponse.message = "Retrieved location successfully.";
+      serviceResponse.data = { location: location };
+    }
+  } catch (err) {
+    serviceResponse.message = err.message;
+  }
+  return serviceResponse;
+};
+
 //ADD NEW LOCATION
 const addNewLocation = async (newLocation, token) => {
   const serviceResponse = new ServiceResponse({ success: false });
@@ -79,6 +95,28 @@ const isValidNumberOfHives = (numberOfHives) => {
   return !isNaN(numberOfHives) && numberOfHives > 0;
 };
 
-const locationService = { addNewLocation, getBestLocations };
+//DELETE SPECIFIC LOCATION
+const deleteLocation = async (locationId) => {
+  const serviceResponse = { success: false };
+  try {
+    const location = await Location.findByIdAndDelete(locationId);
+    if (!location) {
+      serviceResponse.message = "Location not found.";
+      return serviceResponse;
+    }
+    serviceResponse.success = true;
+    serviceResponse.message = "Location deleted successfully.";
+  } catch (error) {
+    serviceResponse.message = error.message;
+  }
+  return serviceResponse;
+};
+
+const locationService = {
+  addNewLocation,
+  getBestLocations,
+  getSpecificLocation,
+  deleteLocation,
+};
 
 module.exports = locationService;
