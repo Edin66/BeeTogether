@@ -13,10 +13,9 @@ export const fetchLocation = async (id) => {
 
 export const fetchBeekeeper = async (beekeeperId) => {
   try {
-    const response = await axios.post(
-      "http://localhost:7000/get-specific-user",
-      { id: beekeeperId }
-    );
+    const response = await axios.post("http://localhost:7000/get-user-by-id", {
+      id: beekeeperId,
+    });
     return response.data.data.user;
   } catch (error) {
     console.error("Error fetching beekeeper:", error);
@@ -25,11 +24,25 @@ export const fetchBeekeeper = async (beekeeperId) => {
 };
 
 export const checkOwnership = (beekeeperId) => {
-  const token = localStorage.getItem("token"); // Adjust according to how you store your token
+  const token = localStorage.getItem("token");
 
   if (token) {
     const decoded = jwtDecode(token);
     return decoded.userId === beekeeperId;
   }
   return false;
+};
+
+export const isTokenExpired = (token) => {
+  try {
+    const decoded = jwtDecode(token);
+    if (decoded.exp) {
+      const currentTime = Date.now() / 1000;
+      return decoded.exp < currentTime;
+    }
+    return true;
+  } catch (error) {
+    console.error("Error decoding token:", error);
+    return true;
+  }
 };
